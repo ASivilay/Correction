@@ -17,14 +17,33 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.views import TokenRefreshView
+
 from users.views import UserModelViewSet
+from projects.views import ProjectModelViewSet
+from issues.views import IssueModelViewSet
+from comments.views import CommentModelViewSet
+from contributors.views import ContributorModelViewSet
 
 router = routers.SimpleRouter()
 router.register('user', UserModelViewSet, basename='user')
+router.register('project', ProjectModelViewSet, basename='project')
+router.register('issue', IssueModelViewSet, basename='issue')
+router.register('comment', CommentModelViewSet, basename='comment')
+router.register('contributor', ContributorModelViewSet, basename='contributor')
+#router.register('admin/', admin.site.urls)
+#router.register('auth/', include('rest_framework.urls'))
+#router.register('account/', include('rest_registration.api.urls'))
+#router.register('token/', TokenObtainPairView.as_view(), name='obtain_tokens')
+#router.register('token/refresh/', TokenRefreshView.as_view(), name='refresh_token')
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('api/admin/', admin.site.urls),
     #path('api/', include('users.urls')),
     path('api-auth/', include('rest_framework.urls')),
+    path('api/account/', include('rest_registration.api.urls')),
+    path('api/token/', TokenObtainPairView.as_view(), name='obtain_tokens'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='refresh_token'),
     path('api/', include(router.urls))
 ]
