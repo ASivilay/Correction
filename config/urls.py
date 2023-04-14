@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework import routers
+
+#from rest_framework import routers
+from rest_framework_nested import routers
 
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.views import TokenRefreshView
@@ -37,6 +39,9 @@ router.register('contributor', ContributorModelViewSet, basename='contributor')
 #router.register('account/', include('rest_registration.api.urls'))
 #router.register('token/', TokenObtainPairView.as_view(), name='obtain_tokens')
 #router.register('token/refresh/', TokenRefreshView.as_view(), name='refresh_token')
+
+api_router = routers.NestedSimpleRouter(router, 'api', lookup='api')
+#api_router.register()
 
 urlpatterns = [
     path('api/admin/', admin.site.urls),
