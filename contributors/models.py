@@ -8,4 +8,5 @@ class Contributor(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="contributor")
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="contributor")
     #permission = models.TextChoices[('True', 'Yes'),('False', 'No')]
-    role = models.CharField(max_length=255)
+    permission = models.CharField(max_length=255, null=True)
+    role = models.CharField(max_length=255, null=True)
